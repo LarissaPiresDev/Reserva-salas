@@ -1,5 +1,5 @@
 from flask import Flask
-from database import db
+from api.database import db
 from reserva_route import routes
 
 app = Flask(__name__)

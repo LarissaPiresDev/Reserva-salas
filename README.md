@@ -4,7 +4,7 @@ Este repositório contém a **API de Reserva de Salas**, desenvolvida com **Flas
 
 ## 🧩 Arquitetura
 
-A API de Reserva de Salas é um **microsserviço** que faz parte de um sistema maior de [School System](https://github.com/caio-ireno/School-System-Api)
+A API de Reserva de Salas é um **microsserviço** que faz parte de um sistema maior de [School System](https://github.com/LarissaPiresDev/API---School-System)
 , sendo responsável exclusivamente pelo gerenciamento das reservas de salas por turma.
 
 ⚠️ **Esta API depende de outra API de Gerenciamento Escolar (School System)**, que deve estar em execução e exposta localmente. A comunicação entre os serviços ocorre via **requisições HTTP REST**, para validar:
@@ -29,8 +29,8 @@ A API de Reserva de Salas é um **microsserviço** que faz parte de um sistema m
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/reserva-salas.git
-cd reserva-salas
+git clone https://github.com/LarissaPiresDev/Reserva-salas.git
+cd Reserva-salas
 ```
 
 ### 2. Crie um ambiente virtual (opcional, mas recomendado)
@@ -50,7 +50,7 @@ pip install -r requirements.txt
 ### 4. Execute a API
 
 ```bash
-python app.py
+python .\api\app.py
 ```
 
 A aplicação estará disponível em:
