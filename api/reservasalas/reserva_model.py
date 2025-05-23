@@ -1,4 +1,4 @@
-from api.database import db
+from config import db
 
 class Reserva(db.Model):
     __tablename__ = 'reservas'
