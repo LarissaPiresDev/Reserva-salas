@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from reservasalas.reserva_model import Reserva
+from .reserva_model import listar_reservas
 from database import db
 import requests
 
@@ -33,15 +34,7 @@ def criar_reserva():
     return jsonify({"mensagem": "Reserva criada com sucesso"}), 201
 
 @reservas.route("/reservas", methods=["GET"])
-def listar_reservas():
-    reservas = Reserva.query.all()
-    return jsonify([
-        {
-            "id": r.id,
-            "turma_id": r.turma_id,
-            "sala": r.sala,
-            "data": r.data,
-            "hora_inicio": r.hora_inicio,
-            "hora_fim": r.hora_fim
-        } for r in reservas
-    ])
+def get_reservas():
+    return jsonify(listar_reservas())
+
+
