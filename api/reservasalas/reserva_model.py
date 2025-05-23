@@ -22,8 +22,18 @@ class Reserva(db.Model):
                 'Nome da Sala': self.sala, 'Data': self.data, 
                 'Ínicio das Aulas': self.hora_inicio, 'Fim das Aulas': self.hora_fim}
 
+class ReservaIdNaoInteiro(Exception):
+    pass
+
+class ReservaIdMenorQueZero(Exception):
+    pass
+
+class ReservaIdNaoEncontrada(Exception):
+    pass
 
 
 def listar_reservas():
     reservas = Reserva.query.all()
     return [reserva.to_dict() for reserva in reservas]
+
+def reserva_por_id(id)
