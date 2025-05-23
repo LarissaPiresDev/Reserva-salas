@@ -28,7 +28,7 @@ class ReservaIdNaoInteiro(Exception):
 class ReservaIdMenorQueZero(Exception):
     pass
 
-class ReservaIdNaoEncontrada(Exception):
+class ReservaNaoEncontrada(Exception):
     pass
 
 
@@ -36,4 +36,15 @@ def listar_reservas():
     reservas = Reserva.query.all()
     return [reserva.to_dict() for reserva in reservas]
 
-def reserva_por_id(id)
+def reserva_por_id(id):
+    try:
+        id = int(id)
+    except ValueError:
+        raise ReservaIdNaoInteiro
+    if id <=0:
+        raise ReservaIdMenorQueZero
+
+    reserva = Reserva.query.get(id)
+    if not reserva:
+        raise ReservaNaoEncontrada
+    return reserva.to_dict()
