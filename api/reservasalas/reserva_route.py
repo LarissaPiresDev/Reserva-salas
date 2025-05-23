@@ -3,12 +3,13 @@ from reservasalas.reserva_model import Reserva
 from database import db
 import requests
 
+schoolSystem = 'http://127.0.0.1:5003'
 reservas = Blueprint("reservas", __name__)
 
 
 def validar_turma(turma_id):
-    resp = requests.get(f"http://localhost:5003/turmas/{turma_id}")
-    return resp.status_code == 200
+    resp = requests.get(f"{schoolSystem}/turmas/{turma_id}")
+    return "Turma Encontrada"
 
 @reservas.route("/reservas", methods=["POST"])
 def criar_reserva():
