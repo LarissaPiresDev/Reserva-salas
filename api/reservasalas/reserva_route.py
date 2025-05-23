@@ -37,4 +37,8 @@ def criar_reserva():
 def get_reservas():
     return jsonify(listar_reservas())
 
+@reservas.route("/reservas/<id>", methods=["GET"]):
+def reservasPorId(id):
+    
+
 
