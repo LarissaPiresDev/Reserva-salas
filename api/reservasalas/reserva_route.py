@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from reservasalas.reserva_model import Reserva
-from .reserva_model import listar_reservas
+from .reserva_model import ReservaIdNaoInteiro, ReservaIdMenorQueZero, ReservaNaoEncontrada, listar_reservas, reserva_por_id
 from database import db
 import requests
 
@@ -37,8 +37,16 @@ def criar_reserva():
 def get_reservas():
     return jsonify(listar_reservas())
 
-@reservas.route("/reservas/<id>", methods=["GET"]):
+@reservas.route("/reservas/<id>", methods=["GET"])
 def reservasPorId(id):
-    
+    try:
+        reserva = reserva_por_id(id)
+        return jsonify(reserva)
+    except ReservaIdNaoInteiro:
+        return jsonify({'mensagem': 'Id de reserva precisa ser um numero inteiro'}), 400
+    except ReservaIdMenorQueZero:
+        return jsonify({'mensagem': 'Id de reserva precisa ser um numero maior que zero'}), 400
+    except ReservaNaoEncontrada:
+        return jsonify({'mensagem': 'Reserva de sala nao encontrada, por favor, insira um id existente'}), 404
 
 
