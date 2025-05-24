@@ -15,6 +15,16 @@ def validar_turma(turma_id):
 @reservas.route("/reservas", methods=["POST"])
 def create_reserva():
     reserva = request.json
+    chaves_esperadas = {'turma_id', 'sala', 'data', 'hora_inicio', 'hora_fim'}
+    chaves_inseridas = set(reserva.keys())
+
+    chaves_invalidas = chaves_inseridas - chaves_esperadas
+    if chaves_invalidas:
+        return jsonify({'mensagem': 'Chaves inseridas inválidas, retire-as',
+                        'Chaves Esperadas': list(chaves_esperadas),
+                        'Chaves Inválidas Inseridas': list(chaves_invalidas)
+                        })
+
     turma_id = reserva.get("turma_id")
 
     if not validar_turma(turma_id):
