@@ -24,6 +24,13 @@ def create_reserva():
                         'Chaves Esperadas': list(chaves_esperadas),
                         'Chaves Inválidas Inseridas': list(chaves_invalidas)
                         })
+    
+    if set(chaves_esperadas) - set(chaves_inseridas):
+        return jsonify({'mensagem': f'Para criar reserva, preciso que insira o valor a chave turma_id os seguintes campos: {list(chaves_esperadas)}'})
+    
+    if not isinstance(reserva['turma_id'], int):
+        return jsonify({'mensagem': 'A chave turma_id precisa ser um número inteiro'})
+    
 
     turma_id = reserva.get("turma_id")
 
