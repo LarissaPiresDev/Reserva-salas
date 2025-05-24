@@ -48,3 +48,16 @@ def reserva_por_id(id):
     if not reserva:
         raise ReservaNaoEncontrada
     return reserva.to_dict()
+
+def criar_reserva(nova_reserva):
+    new_reserva = Reserva(
+        turma_id=int(nova_reserva['turma_id']),
+        sala=str(nova_reserva['sala']),
+        data=str(nova_reserva['data']),
+        hora_inicio=str(nova_reserva['hora_inicio']),
+        hora_fim=str(nova_reserva['hora_fim'])
+    )
+
+    db.session.add(new_reserva)
+    db.session.commit()
+    return new_reserva.to_dict()
