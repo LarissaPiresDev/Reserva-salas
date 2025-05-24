@@ -10,7 +10,7 @@ reservas = Blueprint("reservas", __name__)
 
 def validar_turma(turma_id):
     resp = requests.get(f"{schoolSystem}/turmas/{turma_id}")
-    return "Turma Encontrada"
+    return resp.status_code == 200
 
 @reservas.route("/reservas", methods=["POST"])
 def create_reserva():
