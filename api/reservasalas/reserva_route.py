@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from datetime import datetime, date, timedelta
+from datetime import datetime, date, timedelta, time
 from .reserva_model import ReservaIdNaoInteiro, ReservaIdMenorQueZero, ReservaNaoEncontrada, listar_reservas, reserva_por_id, criar_reserva
 from database import db
 import requests
@@ -43,6 +43,12 @@ def create_reserva():
     if (data_atual - reserva['data']) < timedelta(days=7):
         return jsonify({'mensagem': 'Para reservar uma sala preciso que agende com pelo menos  7 dias de antecedência'}), 400
     
+    try:
+        reserva['hora_inicio'] = datetime.strptime(reserva['hora_inicio'], "%H:%M").time() 
+        reserva['hora_fim'] = datetime.strptime(reserva['hora_fim'], "%H:%M").time() 
+    except (ValueError, TypeError):
+            return jsonify({'mensagem': 'A chave hora_inicio e hora_fim precisa ser uma string no formato Hora:Minuto e não pode estar vazia'}), 400
+
         
 
     turma_id = reserva.get("turma_id")
