@@ -54,7 +54,7 @@ python .\api\app.py
 ```
 
 A aplicação estará disponível em:
-📍 `http://localhost:5001`
+📍 `http://127.0.0.1:5001`
 
 📝 **Observação:** O banco de dados é criado automaticamente na primeira execução.
 
@@ -65,19 +65,17 @@ A aplicação estará disponível em:
 - `GET /reservas` – Lista todas as reservas
 - `POST /reservas` – Cria uma nova reserva
 - `GET /reservas/<id>` – Detalha uma reserva
-- `PUT /reservas/<id>` – Atualiza uma reserva
-- `DELETE /reservas/<id>` – Remove uma reserva
 
 ### Exemplo de corpo JSON para criação:
 
 ```json
-{
-  "turma_id": 1,
-  "sala": "101",
-  "data": "2025-05-06",
-  "hora_inicio": "14:00",
-  "hora_fim": "16:00"
-}
+    {
+        "data": "2025-07-10",
+        "hora_fim": "10:00",
+        "hora_inicio": "8:00",
+        "sala": "101",
+        "turma_id": 1
+    }
 ```
 
 ---
@@ -87,10 +85,10 @@ A aplicação estará disponível em:
 Certifique-se de que a **API de Gerenciamento Escolar** esteja rodando em:
 
 ```
-http://localhost:5000
+http://127.0.0.1:5003
 ```
 
-E que os endpoints de `GET /turmas/<id>` (e opcionalmente `GET /alunos/<id>`) estejam funcionando corretamente para que a validação seja feita com sucesso.
+E que o endpoint de `GET /turmas/<id>`esteja funcionando corretamente para que a validação seja feita com sucesso.
 
 ---
 
@@ -99,24 +97,16 @@ E que os endpoints de `GET /turmas/<id>` (e opcionalmente `GET /alunos/<id>`) es
 ```
 reserva-salas/
 │
-├── app.py
-├── reserva_model.py
-├── database.py
-├── routes.py
-├── requirements.txt
-└── README.md
+├── 📁 api/
+│   ├── 📁 instance/
+│   │   └── 🛢️ reserva.db
+│   ├── 📁 reservasalas/
+│   │   ├── 🐍 reserva_model.py
+│   │   └── 🐍 reserva_routes.py
+│   ├── 🐍 app.py
+│   └── 🐍 config.py
+│
+├── 🐳 Dockerfile
+├── 📄 requirements.txt
+└── 📄 README.md
 ```
-
----
-
-## 🛠️ Futuras Melhorias
-
-- Validação de conflito de horário na sala
-- Integração via fila (RabbitMQ) com outros microsserviços
-- Autenticação de usuários
-
----
-
-## 🧑‍💻 Autor
-
-Caio Ireno – Projeto educativo de arquitetura com Flask e microsserviços.

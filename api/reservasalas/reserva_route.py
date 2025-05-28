@@ -1,7 +1,6 @@
 from flask import Blueprint, request, jsonify
 from datetime import datetime, date, timedelta, time
 from .reserva_model import ReservaIdNaoInteiro, ReservaIdMenorQueZero, ReservaNaoEncontrada, TurmaJaReservada, listar_reservas, reserva_por_id, criar_reserva, verificar_turma_reservada
-from database import db
 import requests
 
 schoolSystem = 'http://127.0.0.1:5003'
