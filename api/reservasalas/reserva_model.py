@@ -31,6 +31,9 @@ class ReservaIdMenorQueZero(Exception):
 class ReservaNaoEncontrada(Exception):
     pass
 
+class TurmaJaReservada(Exception):
+    pass
+
 
 def listar_reservas():
     reservas = Reserva.query.all()
@@ -61,3 +64,9 @@ def criar_reserva(nova_reserva):
     db.session.add(new_reserva)
     db.session.commit()
     return new_reserva.to_dict()
+
+
+def verificar_turma_reservada(turma_id, data):
+    reserva_existente = Reserva.query.filter_by(turma_id=turma_id, data=data).first()
+    if reserva_existente:
+        raise TurmaJaReservada

@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from datetime import datetime, date, timedelta, time
-from .reserva_model import ReservaIdNaoInteiro, ReservaIdMenorQueZero, ReservaNaoEncontrada, listar_reservas, reserva_por_id, criar_reserva
+from .reserva_model import ReservaIdNaoInteiro, ReservaIdMenorQueZero, ReservaNaoEncontrada, TurmaJaReservada, listar_reservas, reserva_por_id, criar_reserva, verificar_turma_reservada
 from database import db
 import requests
 
@@ -49,8 +49,8 @@ def create_reserva():
     except (ValueError, TypeError):
             return jsonify({'mensagem': 'A chave hora_inicio e hora_fim precisa ser uma string no formato Hora:Minuto e não pode estar vazia'}), 400
     
-    if reserva['hora_inicio'] > reserva['hora_fim']:
-        return jsonify({'mensagem': 'Erro, o horário da chave de início é maior  do que o horário fim da reserva'}), 400
+    if reserva['hora_inicio'] >= reserva['hora_fim']:
+        return jsonify({'mensagem': 'Erro, o horário da chave de início é maior ou igual do que o horário fim da reserva'}), 400
     
     if not isinstance(reserva['sala'], str) or not reserva['sala'].strip():
         return jsonify({'mensagem': 'O valor para a chave "sala" precisa ser uma string e não pode estar vazia'}), 400
@@ -62,8 +62,12 @@ def create_reserva():
     if not validar_turma(turma_id):
         return jsonify({"erro": "Turma não encontrada"}), 400
 
+    try:
+        verificar_turma_reservada(reserva['turma_id'], reserva['data'])
+    except TurmaJaReservada:
+        return jsonify({'mensagem': 'Essa turma já possui reserva nessa data.'}), 400
+    
     nova_reserva_criada = criar_reserva(reserva)
-
     return jsonify({'mensagem':'Reserva Criada com Sucesso'}), 201
 
 @reservas.route("/reservas", methods=["GET"])
