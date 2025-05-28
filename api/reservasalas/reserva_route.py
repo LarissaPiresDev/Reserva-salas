@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from reservasalas.reserva_model import Reserva
+from datetime import datetime
 from .reserva_model import ReservaIdNaoInteiro, ReservaIdMenorQueZero, ReservaNaoEncontrada, listar_reservas, reserva_por_id, criar_reserva
 from database import db
 import requests
@@ -31,6 +31,11 @@ def create_reserva():
     if not isinstance(reserva['turma_id'], int):
         return jsonify({'mensagem': 'A chave turma_id precisa ser um número inteiro'}), 400
     
+    try:
+        reserva['data'] = datetime.strptime(reserva['data'], "%Y-%m-%d").date()
+    except (ValueError, TypeError):
+            return jsonify({'mensagem': 'A chave data precisa ser uma string no formato YYYY-MM-DD e não pode estar vazia'}), 400
+        
 
     turma_id = reserva.get("turma_id")
 
