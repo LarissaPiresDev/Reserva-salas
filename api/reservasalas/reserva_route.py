@@ -49,6 +49,9 @@ def create_reserva():
     except (ValueError, TypeError):
             return jsonify({'mensagem': 'A chave hora_inicio e hora_fim precisa ser uma string no formato Hora:Minuto e não pode estar vazia'}), 400
     
+    if reserva['hora_inicio'] > reserva['hora_fim']:
+        return jsonify({'mensagem': 'Erro, o horário da chave de início é maior  do que o horário fim da reserva'}), 400
+    
     if not isinstance(reserva['sala'], str) or not reserva['sala'].strip():
         return jsonify({'mensagem': 'O valor para a chave "sala" precisa ser uma string e não pode estar vazia'}), 400
 
