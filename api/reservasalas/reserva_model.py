@@ -18,9 +18,9 @@ class Reserva(db.Model):
         self.hora_fim = hora_fim
 
     def to_dict(self):
-        return {'id': self.id, 'Turma ID': self.turma_id, 
-                'Nome da Sala': self.sala, 'Data': self.data, 
-                'Ínicio das Aulas': self.hora_inicio, 'Fim das Aulas': self.hora_fim}
+        return {'id': self.id, 'turma_id': self.turma_id, 
+                'sala': self.sala, 'data': self.data, 
+                'hora_inicio': self.hora_inicio, 'hora_fim': self.hora_fim}
 
 class ReservaIdNaoInteiro(Exception):
     pass
