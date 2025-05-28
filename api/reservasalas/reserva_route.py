@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from datetime import datetime
+from datetime import datetime, date
 from .reserva_model import ReservaIdNaoInteiro, ReservaIdMenorQueZero, ReservaNaoEncontrada, listar_reservas, reserva_por_id, criar_reserva
 from database import db
 import requests
@@ -35,6 +35,11 @@ def create_reserva():
         reserva['data'] = datetime.strptime(reserva['data'], "%Y-%m-%d").date()
     except (ValueError, TypeError):
             return jsonify({'mensagem': 'A chave data precisa ser uma string no formato YYYY-MM-DD e não pode estar vazia'}), 400
+    
+    data_atual = date.today()
+    if reserva['data'] < data_atual :
+        return jsonify({'mensagem': 'Data inserida expirada'}), 400
+    
         
 
     turma_id = reserva.get("turma_id")
