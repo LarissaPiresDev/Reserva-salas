@@ -40,7 +40,7 @@ def create_reserva():
     if reserva['data'] < data_atual :
         return jsonify({'mensagem': 'Data inserida expirada'}), 400
     
-    if (data_atual - reserva['data']) < timedelta(days=7):
+    if (reserva['data'] - data_atual) < timedelta(days=7):
         return jsonify({'mensagem': 'Para reservar uma sala preciso que agende com pelo menos  7 dias de antecedência'}), 400
     
     try:
@@ -48,6 +48,9 @@ def create_reserva():
         reserva['hora_fim'] = datetime.strptime(reserva['hora_fim'], "%H:%M").time() 
     except (ValueError, TypeError):
             return jsonify({'mensagem': 'A chave hora_inicio e hora_fim precisa ser uma string no formato Hora:Minuto e não pode estar vazia'}), 400
+    
+    if not isinstance(reserva['sala'], str) or not reserva['sala'].strip():
+        return jsonify({'mensagem': 'O valor para a chave "sala" precisa ser uma string e não pode estar vazia'}), 400
 
         
 
