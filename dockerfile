@@ -14,4 +14,4 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 EXPOSE 5001
 
 # Comando para rodar a aplicação
-CMD ["python", "app.py"]
+CMD ["python", "./api/app.py"]
