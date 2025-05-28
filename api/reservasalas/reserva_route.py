@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from .reserva_model import ReservaIdNaoInteiro, ReservaIdMenorQueZero, ReservaNaoEncontrada, listar_reservas, reserva_por_id, criar_reserva
 from database import db
 import requests
@@ -39,6 +39,9 @@ def create_reserva():
     data_atual = date.today()
     if reserva['data'] < data_atual :
         return jsonify({'mensagem': 'Data inserida expirada'}), 400
+    
+    if (data_atual - reserva['data']) < timedelta(days=7):
+        return jsonify({'mensagem': 'Para reservar uma sala preciso que agende com pelo menos  7 dias de antecedência'}), 400
     
         
 
