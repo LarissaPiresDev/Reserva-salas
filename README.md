@@ -16,9 +16,8 @@ A API de Reserva de Salas é um **microsserviço** que faz parte de um sistema m
 
 ## 🚀 Tecnologias Utilizadas
 
-- Python 3.x
+- Python
 - Flask
-- SQLAlchemy
 - SQLite (como banco de dados local)
 - Requests (para consumo da API externa)
 
@@ -87,8 +86,6 @@ Certifique-se de que a **API de Gerenciamento Escolar** esteja rodando em:
 ```
 http://127.0.0.1:5003
 ```
-
-E que o endpoint de `GET /turmas/<id>`esteja funcionando corretamente para que a validação seja feita com sucesso.
 
 ---
 
